@@ -90,3 +90,44 @@
 - In my case, I was connecting a Shelly Smart Plug, and found it easier to use 'Scan QR code using webcam'.
 - Plug the Shelly Smart Plug into a wall.
 - You may need to wait for the device to complete a firmware update before using it.
+
+### Setting up Cloudflare Tunnels for remote access to Home Assistant with a custom domain
+
+- Go into your Cloudflare Zero Trust dashboard.
+- Navigate to ‘Networks’ > ‘Tunnels’.
+- Create a new tunnel and name it. I named mine ‘ha-core’.
+- Cloudflare will generate a specific installation command containing a unique token string. Copy just the token and paste it somewhere temporary.
+- Click ‘Next’ to go to the Route Traffic tab.
+- Under the Public Hostname section, select your domain from the dropdown.
+- Enter a subdomain in the text box, like ‘home’.
+- Under the Service section, set the type to HTTP and the URL to the internal address of the Wyse (homeassistant.local:8123).
+- Go to your Home Assistant dashboard. Navigate to Settings > Apps > Install app and click the three-dot menu in the top-right.
+- Select ‘Repositories’ and paste https://github.com/homeassistant-apps/repository
+- Go back to the App store and search for ‘Cloudflared’ and ‘File editor’. Install both.
+- Copy the following:  
+```yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+```
+- Go to Settings > Apps and launch File editor.
+- Open configuration.yaml
+- Paste in the code snippet you just copied under the existing code.
+- Save the configuration.
+- Close the Web UI for File editor and navigate to Settings. 
+- From the three-dot menu, select ‘Restart Home Assistant’.
+- Go to Settings > Apps > Cloudflared and from the bottom of the screen, go into ‘Configuration’.
+- In the Options menu, toggle on ‘Show unused configuration options’.
+- For the external Home Assistant hostname, type in the subdomain you chose earlier when setting up your Cloudflare tunnel followed by your domain. For example, home.yourdomain.com 
+- Type in the Cloudflare tunnel name you chose earlier.
+- Paste the Cloudflare token from earlier.
+- Go back to ‘Info’ in the bottom menu and press ‘Start’.
+- Now, try to go to your external hostname from your laptop or other device on another network.
+
+### Secure your Home Assistant network
+
+- Download an authentication app like Google Auth or Authy.
+- In Home Asisstant, click on your profile icon in the bottom left corner.
+- Scroll down to Multi-factor authentication modules and enable ‘Time-based one-time password (TOTP)
+- Link Home Assistant with your chosen auth app.
