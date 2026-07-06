@@ -3,15 +3,15 @@
 ## Booting the VPS
 1. Purchase your VPS from GreenCloud. Mine cost $25 with the following stats:
 
-&nbsp;&nbsp;&nbsp;&nbsp;IPv4: 1  
-&nbsp;&nbsp;&nbsp;&nbsp;IPv6: /64  
-&nbsp;&nbsp;&nbsp;&nbsp;Bandwidth: 4TB  
-&nbsp;&nbsp;&nbsp;&nbsp;Port: 10Gbps  
-&nbsp;&nbsp;&nbsp;&nbsp;OS: Linux  
-&nbsp;&nbsp;&nbsp;&nbsp;Location: Coventry, UK  
-&nbsp;&nbsp;&nbsp;&nbsp;Control Panel: Virtfusion  
-&nbsp;&nbsp;&nbsp;&nbsp;Backup/Snapshot: 1 Free  
-&nbsp;&nbsp;&nbsp;&nbsp;No refund/Money back on this plan  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IPv4: 1  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IPv6: /64  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bandwidth: 4TB  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Port: 10Gbps  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OS: Linux  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location: Coventry, UK  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Control Panel: Virtfusion  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Backup/Snapshot: 1 Free  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No refund/Money back on this plan  
 
 2. Go to the GreenCloud control panel.
 3. Go to Servers and select Build.
