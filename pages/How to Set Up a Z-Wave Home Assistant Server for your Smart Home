@@ -1,0 +1,92 @@
+# How to Set Up a Z-Wave Home Assistant Server for your Smart Home
+
+… and access your Home Assistant network away from home using Cloudflare Tunnels with a custom domain
+
+## The stuff I used
+
+- Dell Wyse 5070 incl. official PSU (8GB DDR4, 128GB SSD) - £68 on eBay
+- DisplayPort to HDMI cable (£4 on Amazon)
+- Zooz Stick ZST39 (£30 on Amazon)
+- 1M USB Extension Cable (£4 on Amazon)
+- Kingston 32GB USB
+- My TV
+- My laptop
+- USB keyboard
+- USB mouse
+- My phone and a cable to connect my phone to the Wyse via USB, in order to connect the Wyse to the Internet via wired connectioin
+- An ethernet cable
+
+## The steps I took to set up my Home Assistant & Z-Wave Smart Home
+
+### Preparing the Zooz stick
+
+- Download the latest firmware file for the Zooz ZST39 from [this page](https://www.support.getzooz.com/kb/article/1158-zooz-ota-firmware-files/). My Z Wave region is the EU, so I downloaded that version.
+- Unzip the file you just downloaded.
+- Insert the Zooz stick directly into a USB port on your laptop.
+- Go to [this page](https://www.silabs.com/software-and-tools/simplicity-studio?tab=getting-started) and select "Getting Started" to download Silicon Labs Simplicity Studio.
+- Launch Simplicity Installer and go through the installation wizard. (I did a full install).
+- Launch Simplicity Studio and navigate to Tools > Z-Wave PC Controller and click "Open Tool".
+- Click the gear icon in the top right corner to open settings and check the recognised USB controller on the list is in the dialog window. If nothing is there, click 'detect' and refresh.
+- Click on 'OTW Firmware Update'.
+- Choose the unzipped firmware file.
+- Wait for the progress bar to indicate completion on the update. Then unplug and set the Zooz stick aside.
+
+### Preparing the Ubuntu boot drive
+
+- Plug your empty USB flash drive into your laptop.
+- Download the [Ubuntu desktop ISO](https://ubuntu.com/download/desktop) (I downloaded the Intel/AMD 64-bit architecture).
+- Download [balenaEtcher](https://etcher.balena.io/#download-etcher) and launch.
+- Select the Ubuntu Desktop ISO you just downloaded as the source image.
+- Select your USB flash drive as the target.
+- Hit flash. When it's done, unplug your USB from the laptop.
+
+### Installing Home Assistant OS
+
+- Plug the Wyse into a wall.
+- Connect the Wyse to a monitor (my TV) using the DisplayPort-to-HDMI cable.
+- Plug in your USB keyboard and mouse into the Wyse.
+- Turn on the Wyse and spam F2 to enter the BIOS.
+- Navigate into Secure Boot > Secure Boot Enable and select 'Disabled' then 'Apply'.
+- Navigate into General > Boot Sequence and verify that under 'Boot List Option', the radio button for UEFI is selected. If it is already on UEFI, leave it alone.
+- Plug your Ubuntu USB drive into the Wyse.
+- Click Exit at the bottom right of the BIOS screen and spam F12.
+- Use your arrow keys to select your USB stick (KingstonDataTraveler) and press Enter.
+- The Ubuntu bootloader will appear. Select 'Try or Install Ubuntu'.
+- In the setup window, click 'Try Ubuntu'.
+- Connect your phone to the Wyse via USB cable and share your mobile data via a wired connection.
+- Open the Firefox browser.
+- Download the [Generic x86-65 Home Assistant OS](https://www.home-assistant.io/installation/generic-x86-64/#:~:text=https%3A//github.com/home%2Dassistant/operating%2Dsystem/releases/download/18.1/haos_generic%2Dx86%2D64%2D18.1.img.xz).
+- Click the grid icon in the bottom-left corner of the desktop to show applications.
+- Search for and open the Disks application.
+- From the sidebar, select your internal drive (mine was '128GB Liteon…'. Do not select your USB drive.
+- Click the three-dot menu at the top of the Disks window.
+- Select 'Restore disk image'.
+- Select the Home Assistant OS image file you just downloaded from the browser.
+- Click 'Start restoring' and confirm the overwrite.
+- Wait for the progress bar to finish. Then shut down the Wyse using the Ubuntu power menu in the top-right corner.
+- After a while, you will see the message 'Please remove the installation medium, then press ENTER'. Do exactly that.
+
+### Booting Home Assistant OS
+
+- Plug the Zooz stick into the USB extension cable. Plug that cable into a black USB port on the Wyse (since these are 2.0 ports, which operate at lower frequencies that won't interfere with Z-Wave signals, unlike blue 3.0 ports which generate 2.4 GHz radio noise.
+- Plug an ethernet cable into the Wyse.
+- Press the power button on the Wyse and leave it alone for ~5 minutes.
+- On your laptop, make sure it's connected to the same network as the Wyse, and open a browser.
+- Navigate to <http://homeassistant.local:8123>.
+- Create your admin account.
+
+### Setting up the Z-Wave Mesh
+
+- In Home Assistant, navigate to Settings > Devices & Services.
+- Click 'Add integration' in the bottom right corner and search for Z-Wave.
+- Check the box that says 'Use the Z-Wave JS Supervisor Add-On' and click Submit.
+- Select the hardware path for your Zooz stick and click Submit.
+- Wait for the add-on to install. The Z-Wave mesh is now live.
+
+### Connecting your first Z-Wave device
+
+- In Settings > Devices & services, click 'Add integration'.
+- Click 'Add Z-Wave device'.
+- In my case, I was connecting a Shelly Smart Plug, and found it easier to use 'Scan QR code using webcam'.
+- Plug the Shelly Smart Plug into a wall.
+- You may need to wait for the device to complete a firmware update before using it.
